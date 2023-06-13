@@ -1,7 +1,7 @@
 
 
 
-const createTodo = function(title,description,dueDate,priority,checked){
+const createTodo = function(title,description,dueDate,priority,checked, id){
 
     let isDone = checked;
 
@@ -19,22 +19,9 @@ const createTodo = function(title,description,dueDate,priority,checked){
         dueDate,
         priority,
         markDone,
-        getDoneValue
+        getDoneValue,
+        id
     }
 }
 
-
-const todo1 = createTodo(
-    'Finish project',
-    'Complete the final tasks for the project',
-    '2023-06-15',
-    'High',
-    false
-  );
-
-
-  console.log(todo1.getDoneValue())
-  todo1.markDone();
-  console.log(todo1.getDoneValue())
-
-
+export {createTodo}

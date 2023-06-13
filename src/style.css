@@ -25,7 +25,17 @@ body, html{
 
 #sidebar{
     background-color: rgb(180, 165, 165);
-    
+    padding: 20px;
+}
+
+#main-content{
+    color: black;
+}
+
+.add-todo{
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 #footer{
@@ -33,5 +43,4 @@ body, html{
     width: 100vw;
     background-color: rgb(167, 138, 138);
     grid-column: 1/3;
-
 }
