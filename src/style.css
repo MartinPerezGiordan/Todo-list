@@ -59,3 +59,10 @@ body, html{
     align-items: center;
     background-color: beige;
 }
+
+.project-btn{
+    list-style: none;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+}

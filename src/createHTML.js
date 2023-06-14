@@ -1,5 +1,5 @@
 
-
+import { selectedProject } from ".";
 
 const createHTML = function(){
 
@@ -24,7 +24,7 @@ const createHTML = function(){
 
     const mainContent = document.createElement("div");
     mainContent.id = "main-content";
-    mainContent.innerHTML += '<h2>List</h2>'
+    mainContent.innerHTML += `<h2 class="project-title">List</h2>`
     mainContent.appendChild(addTodo);
     mainContent.innerHTML += '<button class="btn-add-todo">Add To-do</button><div class="todos"></div>'
 

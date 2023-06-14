@@ -5,14 +5,16 @@ import { updateTodosHTML } from "./updateHTML";
 import { createTodo } from "./Todo";
 import { createProject } from "./projects";
 
-let projects = ['Work', 'Study', 'Gym'];
+let projects = [
+createProject('Daily', [createTodo('Make dinner', 'prepare a nice smoked chicken', 'hola','High')],500)
+];
 
-let todos = [ 'hola'];
+let selectedProject = projects[0]
 
 
 createHTML();
 updateProjectHTML(projects);
-updateTodosHTML(todos);
+updateTodosHTML(selectedProject.name,selectedProject.todos);
 
 
 const titleInput = document.querySelector('#title');
@@ -35,8 +37,8 @@ let todoId = 0
 addBtn.addEventListener('click',()=>{
     let newTodo = createTodo(titleInput.value,descriptionInput.value,dueDateInput.value,priorityInput.value,true,todoId);
     todoId++
-    todos.push(newTodo);
-    updateTodosHTML(todos);
+    selectedProject.todos.push(newTodo);
+    updateTodosHTML(selectedProject.name,selectedProject.todos);
     addform.style.display = 'none'
     openAddBtn.style.display = 'block'
     titleInput.value = ''
@@ -51,22 +53,43 @@ cancel.addEventListener('click',()=>{
     addform.style.display = 'none'
     openAddBtn.style.display = 'block'
 })
+
+
+
 newProjectBtn.addEventListener('click',()=>{
     newProjectForm.style.display = 'block'
     newProjectBtn.style.display = 'none'
 })
+
+let projectId=0
 addProjectBtn.addEventListener('click',()=>{
-    let newProject = createProject(projectNameInput.value)
+    let newProject = createProject(projectNameInput.value,[],projectId)
     projects.push(newProject)
     updateProjectHTML(projects);
+    projectId++
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
+    chooseProjectListener()
 })
 cancelProjectBtn.addEventListener('click',()=>{
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
 })
 
-let deafultProject = createProject('deafult', todos)
-projects.push(deafultProject)
+function chooseProjectListener(){
+    const projectBtns = document.querySelectorAll('.project-btn')
 
+    projectBtns.forEach((projectBtn)=>{
+        projectBtn.addEventListener('click', (e)=>{
+            selectedProject = e.target.id
+
+            projects.forEach(project => {
+                if(e.target.id.substring(7)==project.id){
+                    selectedProject=project
+                }
+            });
+            updateTodosHTML(selectedProject.name,selectedProject.todos);
+        })
+    })
+}
+chooseProjectListener()
