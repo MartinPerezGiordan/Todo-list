@@ -9,7 +9,8 @@ const createHTML = function(){
 
     const sidebar = document.createElement("div");
     sidebar.id = "sidebar";
-    sidebar.innerHTML = '<h2>Projects</h2><div class="projects"><ul class="project-list"></ul></div>'
+    sidebar.innerHTML = '<h2>Projects</h2><button class="new-project-btn">New Project</button><div class="add-project-form"><input type="text" class="project-name-input" placeholder="Project name"><button class="add-project">+ Add</button><button class="cancel-project">Cancel</button></div>'
+    sidebar.innerHTML += '<div class="projects"><ul class="project-list"></ul></div>'
 
     const addTodo = document.createElement("div");
     addTodo.classList.add('add-todo');
