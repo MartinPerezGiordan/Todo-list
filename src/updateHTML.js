@@ -28,8 +28,8 @@ const updateTodosHTML = function(projectName, todos){
             else{
                 todoTask.innerHTML+=`<input type="checkbox" class="checkbox" id="checkbox${todo.id}">`
                 todoTask.classList.remove('checked')
-
             }
+            
             //todoTask.innerHTML+=`<label for="checkbox${todo.id}">finished</label>`
             todoTask.innerHTML+=`<div class="todo-title" id="todo-title${todo.id}">${todo.title}</div>`
             //todoTask.innerHTML+=`<p>${todo.description}</p>`
@@ -41,12 +41,12 @@ const updateTodosHTML = function(projectName, todos){
 
             console.log(todoTask.classList)
             todosHTML.appendChild(todoTask);
-            todoDeleteBtnsListener();
-            editTodoListener();
-            checkboxListener();
         }
 
     });
+    checkboxListener();
+    editTodoListener();
+    todoDeleteBtnsListener();
 
 }
 
