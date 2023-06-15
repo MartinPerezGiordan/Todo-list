@@ -1,3 +1,4 @@
+import { todoDeleteBtnsListener } from ".";
 
 const updateProjectHTML = function(projects){
     const projectHTML = document.querySelector('.project-list')
@@ -14,16 +15,20 @@ const updateTodosHTML = function(projectName, todos){
     const todosHTML = document.querySelector('.todos')
     todosHTML.innerHTML = ''
     todos.forEach(todo => {
-        let todoTask = document.createElement('div')
-        todoTask.classList.add('todo-task')
-        todoTask.id=`todo${todo.id}`
-        todoTask.innerHTML+=`<input type="checkbox" id="checkbox${todo.id}">`
-        //todoTask.innerHTML+=`<label for="checkbox${todo.id}">finished</label>`
-        todoTask.innerHTML+=`<h3>${todo.title}</h3>`
-        todoTask.innerHTML+=`<p>${todo.description}</p>`
-        todoTask.innerHTML+=`<p>${todo.dueDate}</p>`
-        todoTask.innerHTML+=`<div>${todo.priority}</div>`
-        todosHTML.appendChild(todoTask);
+        if(!todo.deleted){
+            let todoTask = document.createElement('div')
+            todoTask.classList.add('todo-task')
+            todoTask.id=`todo${todo.id}`
+            todoTask.innerHTML+=`<input type="checkbox" id="checkbox${todo.id}">`
+            //todoTask.innerHTML+=`<label for="checkbox${todo.id}">finished</label>`
+            todoTask.innerHTML+=`<h3>${todo.title}</h3>`
+            todoTask.innerHTML+=`<p>${todo.description}</p>`
+            todoTask.innerHTML+=`<p>${todo.dueDate}</p>`
+            todoTask.innerHTML+=`<div>${todo.priority}</div>`
+            todoTask.innerHTML+=`<button class="todo-delete-btn" id="deleteTodo${todo.id}">Delete</button>`
+            todosHTML.appendChild(todoTask);
+            todoDeleteBtnsListener()
+        }
     });
 
 }

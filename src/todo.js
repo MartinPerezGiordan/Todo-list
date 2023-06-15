@@ -13,6 +13,9 @@ const createTodo = function(title,description,dueDate,priority,checked, id){
         return isDone;
     }
 
+    let deleted=false
+
+
     return {
         title,
         description,
@@ -20,7 +23,8 @@ const createTodo = function(title,description,dueDate,priority,checked, id){
         priority,
         markDone,
         getDoneValue,
-        id
+        id,
+        deleted,
     }
 }
 

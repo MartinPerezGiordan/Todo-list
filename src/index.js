@@ -6,7 +6,10 @@ import { createTodo } from "./Todo";
 import { createProject } from "./projects";
 
 let projects = [
-createProject('Daily', [createTodo('Make dinner', 'prepare a nice smoked chicken', 'hola','High')],500)
+createProject('Daily', [
+    createTodo('Make dinner', 'prepare a nice smoked chicken', 'hola','High', false, 500),
+    createTodo('Masdnner', 'prepare a nice smoked chicken', 'hola','High', false, 540)],
+    500),
 ];
 
 let selectedProject = projects[0]
@@ -44,6 +47,7 @@ addBtn.addEventListener('click',()=>{
     titleInput.value = ''
     descriptionInput.value = ''
     dueDateInput.value = ''
+
 })
 openAddBtn.addEventListener('click',()=>{
     addform.style.display = 'flex'
@@ -70,6 +74,7 @@ addProjectBtn.addEventListener('click',()=>{
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
     chooseProjectListener()
+
 })
 cancelProjectBtn.addEventListener('click',()=>{
     newProjectForm.style.display = 'none'
@@ -93,3 +98,23 @@ function chooseProjectListener(){
     })
 }
 chooseProjectListener()
+
+function todoDeleteBtnsListener(){
+    const todoDeleteBtns = document.querySelectorAll('.todo-delete-btn')
+
+    todoDeleteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click',(e)=>{
+            console.log('hola')
+            selectedProject.todos.forEach(todo => {
+            if(e.target.id.substring(10)==todo.id){
+                todo.deleted=true
+            }
+            updateTodosHTML(selectedProject.name,selectedProject.todos);
+            });
+        })
+    });
+
+}
+todoDeleteBtnsListener()
+
+export {todoDeleteBtnsListener}
