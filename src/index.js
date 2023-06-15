@@ -8,7 +8,7 @@ import { createProject } from "./projects";
 let projects = [
 createProject('Daily', [
     
-    createTodo('Make dinner', 'prepare a nice smoked chicken', '15/6/2023','High', 540)],
+    createTodo('Make dinner', '15/6/2023', 540)],
     500),
 ];
 
@@ -23,7 +23,6 @@ updateTodosHTML(selectedProject.name,selectedProject.todos);
 const titleInput = document.querySelector('#title');
 const descriptionInput = document.querySelector('#description');
 const dueDateInput = document.querySelector('#dueDate');
-const priorityInput = document.querySelector('#priority');
 const addBtn = document.querySelector('.add')
 const openAddBtn = document.querySelector('.btn-add-todo')
 const addform = document.querySelector('.add-todo')
@@ -38,7 +37,7 @@ const projectNameInput = document.querySelector('.project-name-input')
 let todoId = 0
 
 addBtn.addEventListener('click',()=>{
-    let newTodo = createTodo(titleInput.value,descriptionInput.value,dueDateInput.value,priorityInput.value,todoId);
+    let newTodo = createTodo(titleInput.value,dueDateInput.value,todoId);
     todoId++
     selectedProject.todos.push(newTodo);
     updateTodosHTML(selectedProject.name,selectedProject.todos);
@@ -105,7 +104,6 @@ function todoDeleteBtnsListener(){
     todoDeleteBtns.forEach(deleteBtn => {
         deleteBtn.addEventListener('click',(e)=>{
             selectedProject.todos.forEach(todo => {
-                console.log(e.target.id.substring(10), todo.id )
             if(e.target.id.substring(10)==todo.id){
                 todo.deleted=true
             }
@@ -113,7 +111,31 @@ function todoDeleteBtnsListener(){
             });
         })
     });
+}
 
+function projectDeleteBtnsListener(){
+    const projectDeleteBtns = document.querySelectorAll('.project-delete-btn')
+
+    projectDeleteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click',(e)=>{
+
+            projects.forEach(project => {
+
+            if(e.target.id.substring(14)==project.id){
+                project.deleted = true
+                if(project.name==selectedProject.name){
+                    updateProjectHTML(projects);
+                    updateTodosHTML('',[])
+                }
+                else{
+                    updateProjectHTML(projects);
+                    updateTodosHTML(selectedProject.name,selectedProject.todos)
+                }
+            }
+
+            });
+        })
+    });
 }
 
 function editTodoListener(){
@@ -143,7 +165,6 @@ function editTodoListener(){
                             newDiv.classList.add('todo-title');
                             newDiv.textContent = input.value;
                             todo.title=input.value;
-                            console.log(todo)
                             input.parentNode.replaceChild(newDiv, input);
                             updateTodosHTML(selectedProject.name,selectedProject.todos);
                         }
@@ -166,11 +187,9 @@ function checkboxListener(){
                 if(e.target.id.substring(8)==todo.id){
                     if(!todo.checked){
                         todo.checked=true
-                        console.log(todo.checked)
                     }
                     else{
                         todo.checked=false
-                        console.log(todo.checked)
                     }
                     updateTodosHTML(selectedProject.name,selectedProject.todos);
 
@@ -180,4 +199,4 @@ function checkboxListener(){
     });
 }
 
-export {todoDeleteBtnsListener, editTodoListener, checkboxListener}
+export {todoDeleteBtnsListener, editTodoListener, checkboxListener, projectDeleteBtnsListener}
