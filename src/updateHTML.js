@@ -49,7 +49,7 @@ const updateTodosHTML = function(projectName, todos){
             //todoTask.innerHTML+=`<label for="checkbox${todo.id}">finished</label>`
             todoTask.innerHTML+=`<div class="todo-title" id="todo-title${todo.id}">${todo.title}</div>`
             //todoTask.innerHTML+=`<p>${todo.description}</p>`
-            todoTask.innerHTML+=`<p>${todo.dueDate}</p>`
+            todoTask.innerHTML+=`<div>${todo.dueDate}</div>`
             //todoTask.innerHTML+=`<div>${todo.priority}</div>`
             todoTask.innerHTML+=`<button class="todo-delete-btn" id="deleteTodo${todo.id}">X</button>`
 

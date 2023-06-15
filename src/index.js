@@ -44,7 +44,6 @@ addBtn.addEventListener('click',()=>{
     addform.style.display = 'none'
     openAddBtn.style.display = 'block'
     titleInput.value = ''
-    descriptionInput.value = ''
     dueDateInput.value = ''
 
 })
@@ -55,6 +54,8 @@ openAddBtn.addEventListener('click',()=>{
 cancel.addEventListener('click',()=>{
     addform.style.display = 'none'
     openAddBtn.style.display = 'block'
+    titleInput.value = ''
+    dueDateInput.value = ''
 })
 
 
@@ -72,12 +73,15 @@ addProjectBtn.addEventListener('click',()=>{
     projectId++
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
+    projectNameInput.value = ''
     chooseProjectListener()
 
 })
 cancelProjectBtn.addEventListener('click',()=>{
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
+    projectNameInput.value = ''
+
 })
 
 function chooseProjectListener(){
