@@ -7,8 +7,8 @@ import { createProject } from "./projects";
 
 let projects = [
 createProject('Daily', [
-    createTodo('Make dinner', 'prepare a nice smoked chicken', 'hola','High', false, 500),
-    createTodo('Masdnner', 'prepare a nice smoked chicken', 'hola','High', false, 540)],
+    
+    createTodo('Make dinner', 'prepare a nice smoked chicken', '15/6/2023','High', 540)],
     500),
 ];
 
@@ -38,7 +38,7 @@ const projectNameInput = document.querySelector('.project-name-input')
 let todoId = 0
 
 addBtn.addEventListener('click',()=>{
-    let newTodo = createTodo(titleInput.value,descriptionInput.value,dueDateInput.value,priorityInput.value,true,todoId);
+    let newTodo = createTodo(titleInput.value,descriptionInput.value,dueDateInput.value,priorityInput.value,todoId);
     todoId++
     selectedProject.todos.push(newTodo);
     updateTodosHTML(selectedProject.name,selectedProject.todos);
@@ -104,8 +104,8 @@ function todoDeleteBtnsListener(){
 
     todoDeleteBtns.forEach(deleteBtn => {
         deleteBtn.addEventListener('click',(e)=>{
-            console.log('hola')
             selectedProject.todos.forEach(todo => {
+                console.log(e.target.id.substring(10), todo.id )
             if(e.target.id.substring(10)==todo.id){
                 todo.deleted=true
             }
@@ -154,8 +154,30 @@ function editTodoListener(){
             })
         })
     })
-
-    
 }
 
-export {todoDeleteBtnsListener, editTodoListener}
+function checkboxListener(){
+    const checkboxes = document.querySelectorAll('.checkbox')
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click',(e)=>{
+            selectedProject.todos.forEach(todo =>{
+
+                if(e.target.id.substring(8)==todo.id){
+                    if(!todo.checked){
+                        todo.checked=true
+                        console.log(todo.checked)
+                    }
+                    else{
+                        todo.checked=false
+                        console.log(todo.checked)
+                    }
+                    updateTodosHTML(selectedProject.name,selectedProject.todos);
+
+                }
+            })
+        })
+    });
+}
+
+export {todoDeleteBtnsListener, editTodoListener, checkboxListener}

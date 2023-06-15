@@ -70,3 +70,8 @@ button{
     font-size: 18px;
     cursor: pointer;
 }
+
+.checked{
+    background-color: #373943;
+    text-decoration: line-through;
+}

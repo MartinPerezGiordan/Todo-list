@@ -1,7 +1,7 @@
 
 
 
-const createTodo = function(title,description,dueDate,priority,checked, id){
+const createTodo = function(title,description,dueDate,priority, id){
 
     let isDone = checked;
 
@@ -14,6 +14,7 @@ const createTodo = function(title,description,dueDate,priority,checked, id){
     }
 
     let deleted=false
+    let checked=false
 
 
     return {
@@ -21,8 +22,7 @@ const createTodo = function(title,description,dueDate,priority,checked, id){
         description,
         dueDate,
         priority,
-        markDone,
-        getDoneValue,
+        checked,
         id,
         deleted,
     }
