@@ -115,6 +115,47 @@ function todoDeleteBtnsListener(){
     });
 
 }
-todoDeleteBtnsListener()
 
-export {todoDeleteBtnsListener}
+function editTodoListener(){
+    const editTitleBtns = document.querySelectorAll('.todo-title')
+
+    editTitleBtns.forEach(editBtn =>{
+        editBtn.addEventListener('click', (e)=>{
+            selectedProject.todos.forEach(todo=>{
+                if(e.target.id.substring(10)==todo.id){
+                    let input = document.createElement('input')
+                    input.value = e.target.textContent
+                    e.target.parentNode.replaceChild(input, e.target);
+                    input.focus();
+
+                    input.addEventListener('blur', ()=>{
+                        const newDiv = document.createElement('div');
+                        input.parentNode.replaceChild(newDiv, input);  
+                        newDiv.textContent = input.value;
+                        updateTodosHTML(selectedProject.name,selectedProject.todos);
+
+                    });
+
+                    input.addEventListener('keydown', (event)=>{
+                        if(event.keyCode===13){
+                            event.preventDefault();
+                            const newDiv = document.createElement('div');
+                            newDiv.classList.add('todo-title');
+                            newDiv.textContent = input.value;
+                            todo.title=input.value;
+                            console.log(todo)
+                            input.parentNode.replaceChild(newDiv, input);
+                            updateTodosHTML(selectedProject.name,selectedProject.todos);
+                        }
+                    })
+
+
+                }
+            })
+        })
+    })
+
+    
+}
+
+export {todoDeleteBtnsListener, editTodoListener}
