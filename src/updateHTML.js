@@ -5,6 +5,8 @@ import { projectDeleteBtnsListener } from ".";
 
 const updateProjectHTML = function(projects){
     localStorage.setItem('projects', JSON.stringify(projects));
+    console.log(projects)
+
     const projectHTML = document.querySelector('.project-list')
     projectHTML.innerHTML = ''
 
@@ -21,6 +23,7 @@ const updateProjectHTML = function(projects){
 
 const updateTodosHTML = function(projectName, todos, projects){
     localStorage.setItem('projects', JSON.stringify(projects));
+    console.log(projects)
     const projectTitle = document.querySelector('.project-title')
     projectTitle.innerHTML = projectName
     const todosHTML = document.querySelector('.todos')

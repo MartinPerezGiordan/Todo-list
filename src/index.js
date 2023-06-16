@@ -4,29 +4,46 @@ import { updateProjectHTML } from "./updateHTML";
 import { updateTodosHTML } from "./updateHTML";
 import { createTodo } from "./Todo";
 import { createProject } from "./projects";
+import { v4 as uuid } from "uuid";
 
 
 
-let projects = [
-createProject('Nada', [
-    
-    createTodo('Make dinner', '15/6/2023', 540)],
-    500),
-];
+let projects = [];
 console.log(projects)
 
-let selectedProject = projects[0]
+
+
 let savedProjects = JSON.parse(localStorage.getItem('projects'));
-if(savedProjects!=''){
+if(savedProjects!=null){
     projects=savedProjects
 }
+else{
+    projects=[
+        createProject('Nada', [
+            
+            createTodo('Make dinner', '15/6/2023', 540)],
+            500),
+        ]
+}
+
+let selectedProject = createProject('',[])
+console.log(selectedProject)
+
 console.log(savedProjects)
 
-
+for(let i=0;i<projects.length;i++){
+    if(!projects[i].deleted){
+        selectedProject = projects[i]
+        console.log(projects[i])
+        break;
+    }
+}
 
 createHTML();
 updateProjectHTML(projects);
 updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
+
+
 
 
 const titleInput = document.querySelector('#title');
@@ -43,11 +60,11 @@ const newProjectForm = document.querySelector('.add-project-form')
 const projectNameInput = document.querySelector('.project-name-input')
 
 
-let todoId = 0
+let todoId = uuid();
 
 addBtn.addEventListener('click',()=>{
     let newTodo = createTodo(titleInput.value,dueDateInput.value,todoId);
-    todoId++
+    todoId = uuid();
     selectedProject.todos.push(newTodo);
     updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
     addform.style.display = 'none'
@@ -74,12 +91,12 @@ newProjectBtn.addEventListener('click',()=>{
     newProjectBtn.style.display = 'none'
 })
 
-let projectId=0
+let projectId=uuid()
 addProjectBtn.addEventListener('click',()=>{
     let newProject = createProject(projectNameInput.value,[],projectId)
     projects.push(newProject)
     updateProjectHTML(projects);
-    projectId++
+    projectId = uuid();
     newProjectForm.style.display = 'none'
     newProjectBtn.style.display = 'block'
     projectNameInput.value = ''
