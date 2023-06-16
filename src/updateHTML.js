@@ -4,9 +4,9 @@ import { checkboxListener } from ".";
 import { projectDeleteBtnsListener } from ".";
 
 const updateProjectHTML = function(projects){
+    localStorage.setItem('projects', JSON.stringify(projects));
     const projectHTML = document.querySelector('.project-list')
     projectHTML.innerHTML = ''
-    console.log(projects)
 
     projects.forEach(project => {
         if(!project.deleted){
@@ -15,9 +15,12 @@ const updateProjectHTML = function(projects){
 
     });
     projectDeleteBtnsListener();
+    
+
 }
 
-const updateTodosHTML = function(projectName, todos){
+const updateTodosHTML = function(projectName, todos, projects){
+    localStorage.setItem('projects', JSON.stringify(projects));
     const projectTitle = document.querySelector('.project-title')
     projectTitle.innerHTML = projectName
     const todosHTML = document.querySelector('.todos')

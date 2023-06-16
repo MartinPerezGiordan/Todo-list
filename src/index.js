@@ -5,19 +5,28 @@ import { updateTodosHTML } from "./updateHTML";
 import { createTodo } from "./Todo";
 import { createProject } from "./projects";
 
+
+
 let projects = [
-createProject('Daily', [
+createProject('Nada', [
     
     createTodo('Make dinner', '15/6/2023', 540)],
     500),
 ];
+console.log(projects)
 
 let selectedProject = projects[0]
+let savedProjects = JSON.parse(localStorage.getItem('projects'));
+if(savedProjects!=''){
+    projects=savedProjects
+}
+console.log(savedProjects)
+
 
 
 createHTML();
 updateProjectHTML(projects);
-updateTodosHTML(selectedProject.name,selectedProject.todos);
+updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
 
 
 const titleInput = document.querySelector('#title');
@@ -40,7 +49,7 @@ addBtn.addEventListener('click',()=>{
     let newTodo = createTodo(titleInput.value,dueDateInput.value,todoId);
     todoId++
     selectedProject.todos.push(newTodo);
-    updateTodosHTML(selectedProject.name,selectedProject.todos);
+    updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
     addform.style.display = 'none'
     openAddBtn.style.display = 'block'
     titleInput.value = ''
@@ -96,7 +105,7 @@ function chooseProjectListener(){
                     selectedProject=project
                 }
             });
-            updateTodosHTML(selectedProject.name,selectedProject.todos);
+            updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
         })
     })
 }
@@ -111,7 +120,7 @@ function todoDeleteBtnsListener(){
             if(e.target.id.substring(10)==todo.id){
                 todo.deleted=true
             }
-            updateTodosHTML(selectedProject.name,selectedProject.todos);
+            updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
             });
         })
     });
@@ -129,11 +138,11 @@ function projectDeleteBtnsListener(){
                 project.deleted = true
                 if(project.name==selectedProject.name){
                     updateProjectHTML(projects);
-                    updateTodosHTML('',[])
+                    updateTodosHTML('',[], projects)
                 }
                 else{
                     updateProjectHTML(projects);
-                    updateTodosHTML(selectedProject.name,selectedProject.todos)
+                    updateTodosHTML(selectedProject.name,selectedProject.todos, projects)
                 }
             }
 
@@ -158,7 +167,7 @@ function editTodoListener(){
                         const newDiv = document.createElement('div');
                         input.parentNode.replaceChild(newDiv, input);  
                         newDiv.textContent = input.value;
-                        updateTodosHTML(selectedProject.name,selectedProject.todos);
+                        updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
 
                     });
 
@@ -170,7 +179,7 @@ function editTodoListener(){
                             newDiv.textContent = input.value;
                             todo.title=input.value;
                             input.parentNode.replaceChild(newDiv, input);
-                            updateTodosHTML(selectedProject.name,selectedProject.todos);
+                            updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
                         }
                     })
 
@@ -195,7 +204,7 @@ function checkboxListener(){
                     else{
                         todo.checked=false
                     }
-                    updateTodosHTML(selectedProject.name,selectedProject.todos);
+                    updateTodosHTML(selectedProject.name,selectedProject.todos, projects);
 
                 }
             })
